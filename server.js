@@ -7,7 +7,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://nurse-study-pro-frontend.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.get("/", (req, res) => res.send("Backend is running successfully!"));
 app.listen(process.env.PORT || 5000, () =>
