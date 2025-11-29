@@ -3,6 +3,6 @@ import { getQuiz } from "../controllers/quizController.js";
 
 const router = express.Router();
 
-router.get("/:topicId", getQuiz);
+router.get("/:topicId", getQuizzesByTopic);
 
 export default router;
