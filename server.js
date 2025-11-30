@@ -7,6 +7,7 @@ import topicRoutes from "./routes/topicRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import { errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 connectDB();
@@ -24,6 +25,8 @@ app.use("/api/topics", topicRoutes);
 app.use("/api/quizzes", quizRoutes);
 app.use("/api/auth", authRoutes);
 app.get("/", (req, res) => res.send("Backend is running successfully!"));
+// ERROR HANDLER (must be LAST!)
+app.use(errorHandler);
 app.listen(process.env.PORT || 5000, () =>
   console.log(`Server running on port ${process.env.PORT}`)
   );
