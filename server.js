@@ -24,7 +24,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
+app.options("*", cors());
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/topics", topicRoutes);
