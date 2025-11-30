@@ -1,21 +1,27 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 import User from "../models/User.js";
+import dotenv from "dotenv";
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/nurseDB"; // or your Atlas URL
+dotenv.config();
 
-async function createUser() {
-  await mongoose.connect(MONGO_URL);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.log(err));
 
-  const hashed = await bcrypt.hash("123456", 10);
+const run = async () => {
+  try {
+    await User.create({
+      name: "Test User",
+      email: "test@example.com",
+      password: "123456",
+    });
+    console.log("User created!");
+  } catch (err) {
+    console.log(err);
+  } finally {
+    mongoose.disconnect();
+  }
+};
 
-  await User.create({
-    email: "test@example.com",
-    password: hashed,
-  });
-
-  console.log("Test user created!");
-  mongoose.disconnect();
-}
-
-createUser();
+run();
