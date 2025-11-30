@@ -19,11 +19,12 @@ app.use(
       "http://localhost:5173",
       "https://nurse-study-pro-frontend.vercel.app",
     ],
-    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
+
 // This MUST appear before routes
 app.use(express.json());
 
