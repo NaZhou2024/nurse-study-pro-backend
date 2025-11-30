@@ -11,14 +11,20 @@ import { errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 connectDB();
-
 const app = express();
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://nurse-study-pro-frontend.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://nurse-study-pro-frontend.vercel.app",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/topics", topicRoutes);
@@ -27,15 +33,16 @@ app.use("/api/auth", authRoutes);
 app.get("/", (req, res) => res.send("Backend is running successfully!"));
 // ERROR HANDLER (must be LAST!)
 app.use(errorHandler);
-app.listen(process.env.PORT || 5000, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
-  );
+
 // app.listen(5000, () => console.log("Server running on port 5000"));
 
 // SERVER
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
-    app.listen(5000, () => console.log("Server running on port 5000"));
+    app.listen(process.env.PORT || 5000, () =>
+      console.log(`Server running on port ${process.env.PORT || 5000}`)
+    );
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));

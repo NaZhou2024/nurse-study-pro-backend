@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import User from "../models/User.js";
 import dotenv from "dotenv";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const hashedPassword = await bcrypt.hash("123456", 10);
 

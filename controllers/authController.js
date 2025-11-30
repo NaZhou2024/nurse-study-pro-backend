@@ -29,7 +29,7 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err); // <-- log real error
+    console.error("LOGIN ERROR:", err); // <-- log real error
     res.status(500).json({ message: "Server error" });
   }
 };
