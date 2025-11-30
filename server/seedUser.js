@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import User from "../models/User.js";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
+
+const hashedPassword = await bcrypt.hash("123456", 10);
 
 dotenv.config();
 
@@ -14,7 +17,7 @@ const run = async () => {
     await User.create({
       name: "Test User",
       email: "test@example.com",
-      password: "123456",
+      password: hashedPassword,
     });
     console.log("User created!");
   } catch (err) {
