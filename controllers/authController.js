@@ -5,7 +5,8 @@ import bcrypt from "bcryptjs";
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log("EMAIL:", email);
+    console.log("PASSWORD:", password);
     // 1. Find user
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid email" });
