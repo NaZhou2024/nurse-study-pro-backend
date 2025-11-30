@@ -17,7 +17,7 @@ const run = async () => {
     await User.create({
       name: "Test User",
       email: "test@example.com",
-      password: hashedPassword,
+      passwordHash: hashedPassword,
     });
     console.log("User created!");
   } catch (err) {

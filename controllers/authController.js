@@ -10,8 +10,8 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid email" });
 
-    // 2. Verify password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // 2. Verify password (use passwordHash!)
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) return res.status(401).json({ message: "Invalid password" });
 
     // 3. Create token
@@ -29,6 +29,7 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (err) {
+    console.error(err); // <-- log real error
     res.status(500).json({ message: "Server error" });
   }
 };
